@@ -1,0 +1,347 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "GET Cloud API",
+    "description" : "This is an API v1 specification for GET Cloud that allows external users to obtain existing information on GET Cloud.",
+    "termsOfService" : "https://docs.micropower-group.com/#!facets/Area/Licences/topic:End_user_licenese_agreement",
+    "contact" : {
+      "name" : "Micropower Group",
+      "email" : "micropowergroupab@gmail.com"
+    },
+    "license" : {
+      "name" : "Micropower License"
+    }
+  },
+  "tags" : [ {
+    "name" : "login"
+  }, {
+    "name" : "devices"
+  } ],
+  "schemes" : [ "https", "http" ],
+  "basePath" : "/api/external/v1/",
+  "definitions" : {
+    "schemas" : {
+      "Login" : {
+        "type" : "object",
+        "required" : [ "username", "password" ],
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "example" : "admin@example.com"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "secret2"
+          }
+        }
+      },
+      "LoginForm" : {
+        "description" : "a form for login",
+        "type" : "object",
+        "required" : [ "username", "password" ],
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "x-example" : "admin@example.com"
+          },
+          "password" : {
+            "type" : "string",
+            "x-example" : "secret2"
+          }
+        }
+      },
+      "LoginSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "success"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "authToken" : {
+                "type" : "string",
+                "example" : "TXbeh9NUef5RIfiU3DQUJlbvbBOeZELweRrGzjqBvng"
+              },
+              "userId" : {
+                "type" : "string",
+                "example" : "45JpGx777hhasqMzt"
+              }
+            }
+          }
+        }
+      },
+      "WrongPassword" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "error"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Wrong Password"
+          }
+        }
+      },
+      "UserNotExist" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "error"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Username doesn't exist"
+          }
+        }
+      },
+      "ListDevices" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "success"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "mui" : {
+                  "type" : "string",
+                  "description" : "MUI is blablabla"
+                },
+                "serialNumber" : {
+                  "type" : "string",
+                  "description" : "Serial number is blablabla"
+                },
+                "deviceId" : {
+                  "type" : "string",
+                  "description" : "Device ID is blablabla"
+                },
+                "productId" : {
+                  "type" : "string",
+                  "description" : "Product ID is blablabla"
+                },
+                "deviceDescription" : {
+                  "type" : "string",
+                  "description" : "Device description is blablabla"
+                }
+              }
+            },
+            "example" : [ {
+              "mui" : "281484147310664",
+              "serialNumber" : "9180100939",
+              "deviceId" : "1054",
+              "productId" : "7",
+              "deviceDescription" : "bmu"
+            }, {
+              "mui" : "281484147310665",
+              "serialNumber" : "9180100940",
+              "deviceId" : "54",
+              "productId" : "26",
+              "deviceDescription" : "access50"
+            } ]
+          }
+        }
+      },
+      "ResponseStatus" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "success"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "chargerCurrent" : {
+                "type" : "float",
+                "description" : "Charger current"
+              },
+              "chargerTemperature" : {
+                "type" : "float",
+                "description" : "Charger temperature"
+              },
+              "chargerVoltage" : {
+                "type" : "float",
+                "description" : "Charger voltage"
+              }
+            },
+            "example" : {
+              "chargerCurrent" : 119.999,
+              "chargerTemperature" : 50.0,
+              "chargerVoltage" : 48.001
+            }
+          }
+        }
+      },
+      "Unauthorized" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "error"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Unauthorized: You must log in to do this."
+          }
+        }
+      },
+      "ItemNotFound" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "error"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Item Not Found"
+          }
+        }
+      }
+    }
+  },
+  "paths" : {
+    "/login" : {
+      "post" : {
+        "tags" : [ "login" ],
+        "summary" : "Authentication",
+        "description" : "All API endpoints require requests to be authenticated, unless otherwise noted. The login endpoint returns a userId and authToken, which the client must include in subsequent requests in the X-User-Id and X-Auth-Token headers.",
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/definitions/schemas/Login"
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/definitions/schemas/LoginForm"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successfully logged in!",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/LoginSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Wrong username",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/UserNotExist"
+                }
+              }
+            }
+          },
+          "402" : {
+            "description" : "Wrong password",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/WrongPassword"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices" : {
+      "get" : {
+        "tags" : [ "devices" ],
+        "description" : "Gets the list of the devices visible for the logged in user",
+        "summary" : "List all devices",
+        "responses" : {
+          "200" : {
+            "description" : "Successfully listing all devices visible for the logged in user",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/ListDevices"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/<mui>/status" : {
+      "get" : {
+        "tags" : [ "devices" ],
+        "parameters" : [ {
+          "name" : "mui",
+          "in" : "query",
+          "description" : "A MUI is a 64-bit unsigned integer that uniquely identifies a device.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "summary" : "Get the last reported status for a certain device",
+        "responses" : {
+          "200" : {
+            "description" : "Successfully listing all devices visible for the logged in user. The data field contains the latest status signalled by the device in the form of an object keyed with the attribute names of the status values. To interpret the values in this object please refer to the spreadsheet A00460_rev02. <table border=5> <tr> <th>Device data id</th> <th>Name</th> <th>Attribute name</th> </tr> <tr> <td>76</td> <td>AC Power Consumption</td> <td>acPowerConsumption</td> </tr> <tr> <td>127</td> <td>Active alarms</td> <td>activeAlarms</td> </tr> </table>",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/ResponseStatus"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "ItemNotFound",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/definitions/schemas/ItemNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "description" : "",
+    "url" : "http://get-cloud.com"
+  } ]
+}

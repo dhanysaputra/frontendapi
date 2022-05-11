@@ -1,0 +1,1350 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "GET Cloud API",
+    "description": "This is an API v1.1 specification for GET Cloud that allows external users to obtain existing information on GET Cloud.<br><br><b>This should be considered a DRAFT and not a final API specification. The API will be subject to change without notice until the official release.</b>",
+    "termsOfService": "https://docs.micropower-group.com/#!doc/topic:GET_User_Terms_and_conditions",
+    "contact": {
+      "name": "Micropower Group",
+      "email": "micropowergroupab@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "login"
+    },
+    {
+      "name": "devices"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Login": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "admin@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "secret2"
+          }
+        }
+      },
+      "LoginForm": {
+        "description": "a form for login",
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "x-example": "admin@example.com"
+          },
+          "password": {
+            "type": "string",
+            "x-example": "secret2"
+          }
+        }
+      },
+      "LoginSuccess": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "authToken": {
+                "type": "string",
+                "example": "TXbeh9NUef5RIfiU3DQUJlbvbBOeZELweRrGzjqBvng"
+              },
+              "userId": {
+                "type": "string",
+                "example": "45JpGx777hhasqMzt"
+              }
+            }
+          }
+        }
+      },
+      "WrongPassword": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Wrong Password"
+          }
+        }
+      },
+      "UserNotExist": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Username doesn't exist"
+          }
+        }
+      },
+      "RequestTimeout": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Request Timeout"
+          }
+        }
+      },
+      "PayloadTooLarge": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "The requested data is too large: 1997 records, max 1000. Please use checkSize to approximate your request"
+          }
+        }
+      },
+      "ListDevices": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mui": {
+                  "type": "string"
+                },
+                "serialNumber": {
+                  "type": "string"
+                },
+                "deviceId": {
+                  "type": "string"
+                },
+                "productId": {
+                  "type": "string"
+                },
+                "deviceDescription": {
+                  "type": "string"
+                }
+              }
+            },
+            "example": [
+              {
+                "mui": "281484147310664",
+                "serialNumber": "9180100939",
+                "deviceId": "1054",
+                "productId": "7",
+                "productType": "Lead-acid",
+                "deviceDescription": "bmu",
+                "batteryTag": "BATTERY",
+                "bmuType": "Pro"
+              },
+              {
+                "mui": "281484147310665",
+                "serialNumber": "9180100940",
+                "deviceId": "54",
+                "productId": "26",
+                "productType": "Lead-acid",
+                "deviceDescription": "access50"
+              }
+            ]
+          }
+        }
+      },
+      "ResponseConfig": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mui": {
+                  "type": "string"
+                },
+                "serialNumber": {
+                  "type": "string"
+                },
+                "deviceId": {
+                  "type": "string"
+                },
+                "productId": {
+                  "type": "string"
+                },
+                "deviceDescription": {
+                  "type": "string"
+                }
+              }
+            },
+            "example": [
+              {
+                "mui": "281484147310664",
+                "acidSensor": "Yes",
+                "ahAvailable": 930000,
+                "ahUsed": 0,
+                "algorithmNumber": 12,
+                "automaticCalibration": "No",
+                "baseload": 0,
+                "cableResistance": 0,
+                "capacity": 775,
+                "cell": 24,
+                "cellTap": 12,
+                "channel": 26,
+                "chargeEfficiency": 95,
+                "chargeStateThreshold": 30,
+                "cyclesAvailable": 1500,
+                "dischargeStateThreshold": 30,
+                "equalizeFunction": "Weekday",
+                "equalizeParameter": "Sat",
+                "everyDayUpdateHistoryLog": "Yes",
+                "fahrenheitScale": "°C",
+                "highHistoryCurrentIdleLimit": "Normal",
+                "instantLogPeriod": 89,
+                "latestDeviceConfigUpdate": "08/11/2021 13:55:58",
+                "nodeAddress": "7843",
+                "panId": "11111",
+                "stateOfChargeLow": 20,
+                "temperatureMax": 50,
+                "voltageBalanceLimit": 1440,
+                "wateringFunction": "Disabled",
+                "wateringParameter": ""
+              },
+              {
+                "mui": "562959153521510",
+                "acidSensor": "Yes",
+                "ahAvailable": 930000,
+                "ahUsed": 0,
+                "algorithmNumber": 12,
+                "automaticCalibration": "No",
+                "baseload": 0,
+                "cableResistance": 0,
+                "capacity": 775,
+                "cell": 24,
+                "cellTap": 12,
+                "channel": 26,
+                "chargeEfficiency": 95,
+                "chargeStateThreshold": 30,
+                "cyclesAvailable": 1500,
+                "dischargeStateThreshold": 30,
+                "equalizeFunction": "Weekday",
+                "equalizeParameter": "Sat",
+                "everyDayUpdateHistoryLog": "Yes",
+                "fahrenheitScale": "°C",
+                "highHistoryCurrentIdleLimit": "Normal",
+                "instantLogPeriod": 89,
+                "latestDeviceConfigUpdate": "08/11/2021 13:55:58",
+                "nodeAddress": "7843",
+                "panId": "11111",
+                "stateOfChargeLow": 20,
+                "temperatureMax": 50,
+                "voltageBalanceLimit": 1440,
+                "wateringFunction": "Disabled",
+                "wateringParameter": ""
+              }
+            ]
+          }
+        }
+      },
+      "ResponseStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "example": [
+              {
+                "mui": "562959144425069",
+                "batteryCurrent": -135,
+                "batteryTemperature": 30.2,
+                "batteryTemperatureAverage": 25.7,
+                "batteryVoltage": 51.58,
+                "cycles26To50": 18,
+                "cycles2To25": 59,
+                "cycles51To80": 59,
+                "cycles81To90": 23,
+                "cyclesAbove90": 42,
+                "deviceStatus": "Radio connected, Equalizing",
+                "ebUnits": 53,
+                "lastSeen": "02/11/2021 00:58:39",
+                "stateOfChargeStatusLog": 85
+              },
+              {
+                "mui": "562959153521510",
+                "batteryCurrent": 63.7,
+                "batteryTemperature": 25.9,
+                "batteryTemperatureAverage": 24.6,
+                "batteryVoltage": 28.99,
+                "cycles26To50": 19,
+                "cycles2To25": 1375,
+                "cycles51To80": 17,
+                "cycles81To90": 0,
+                "cyclesAbove90": 0,
+                "cyclesLeft": 1687,
+                "deviceStatus": "Charging, Radio connected, Equalizing, Charger connected",
+                "ebUnits": 0,
+                "lastSeen": "02/11/2021 13:32:55",
+                "stateOfChargeStatusLog": 86
+              }
+            ]
+          }
+        }
+      },
+      "ResponseHistory": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "example": [
+              {
+                "mui": "562959144425069",
+                "values": [
+                  {
+                    "dischargeTimeStart": "23/10/2021 01:00:00",
+                    "chargeActiveTimeBMU": 6.52,
+                    "chargeAh": 251,
+                    "chargeBatteryTemperatureMax": 38.7,
+                    "chargeBatteryTemperatureMin": 28,
+                    "chargeCurrentMax": 38.7,
+                    "chargeStateOfChargeEnd": 100,
+                    "chargeStateOfChargeStart": 89,
+                    "chargeTimeStart": "23/10/2021 01:00:00",
+                    "chargeVpcMax": 2.63,
+                    "chargeVpcStart": 2.21,
+                    "dischargeActiveTime": 0,
+                    "dischargeAh": 0,
+                    "dischargeBatteryTemperatureMax": 0,
+                    "dischargeBatteryTemperatureMin": 0,
+                    "dischargeCurrentMax": 0,
+                    "dischargeStateOfChargeEnd": 89,
+                    "dischargeStateOfChargeStart": 0,
+                    "dischargeVpcMin": 0,
+                    "equalizeTime": 6
+                  },
+                  {
+                    "dischargeTimeStart": "24/10/2021 01:00:00",
+                    "chargeActiveTimeBMU": 6.52,
+                    "chargeAh": 6,
+                    "chargeBatteryTemperatureMax": 28,
+                    "chargeBatteryTemperatureMin": 21.3,
+                    "chargeCurrentMax": 38.6,
+                    "chargeStateOfChargeEnd": 100,
+                    "chargeStateOfChargeStart": 100,
+                    "chargeTimeStart": "24/10/2021 03:35:43  ",
+                    "chargeVpcMax": 2.61,
+                    "chargeVpcStart": 2.27,
+                    "dischargeActiveTime": 2.57,
+                    "dischargeAh": 37,
+                    "dischargeBatteryTemperatureMax": 22.1,
+                    "dischargeBatteryTemperatureMin": 21.3,
+                    "dischargeCurrentMax": 318.2,
+                    "dischargeStateOfChargeEnd": 100,
+                    "dischargeStateOfChargeStart": 100,
+                    "dischargeVpcMin": 1.9,
+                    "equalizeTime": 0
+                  }
+                ]
+              },
+              {
+                "mui": "5629591535215102",
+                "values": [
+                  {
+                    "dischargeTimeStart": "23/10/2021 01:00:00",
+                    "chargeActiveTimeBMU": 6.52,
+                    "chargeAh": 251,
+                    "chargeBatteryTemperatureMax": 38.7,
+                    "chargeBatteryTemperatureMin": 28,
+                    "chargeCurrentMax": 38.7,
+                    "chargeStateOfChargeEnd": 100,
+                    "chargeStateOfChargeStart": 89,
+                    "chargeTimeStart": "23/10/2021 01:00:00",
+                    "chargeVpcMax": 2.63,
+                    "chargeVpcStart": 2.21,
+                    "dischargeActiveTime": 0,
+                    "dischargeAh": 0,
+                    "dischargeBatteryTemperatureMax": 0,
+                    "dischargeBatteryTemperatureMin": 0,
+                    "dischargeCurrentMax": 0,
+                    "dischargeStateOfChargeEnd": 89,
+                    "dischargeStateOfChargeStart": 0,
+                    "dischargeVpcMin": 0,
+                    "equalizeTime": 6
+                  },
+                  {
+                    "dischargeTimeStart": "24/10/2021 01:00:00",
+                    "chargeActiveTimeBMU": 6.52,
+                    "chargeAh": 6,
+                    "chargeBatteryTemperatureMax": 28,
+                    "chargeBatteryTemperatureMin": 21.3,
+                    "chargeCurrentMax": 38.6,
+                    "chargeStateOfChargeEnd": 100,
+                    "chargeStateOfChargeStart": 100,
+                    "chargeTimeStart": "24/10/2021 03:35:43  ",
+                    "chargeVpcMax": 2.61,
+                    "chargeVpcStart": 2.27,
+                    "dischargeActiveTime": 2.57,
+                    "dischargeAh": 37,
+                    "dischargeBatteryTemperatureMax": 22.1,
+                    "dischargeBatteryTemperatureMin": 21.3,
+                    "dischargeCurrentMax": 318.2,
+                    "dischargeStateOfChargeEnd": 100,
+                    "dischargeStateOfChargeStart": 100,
+                    "dischargeVpcMin": 1.9,
+                    "equalizeTime": 0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "ResponseEvent": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "example": [
+              {
+                "mui": "2533284001109676",
+                "chargerId": 151100220,
+                "values": [
+                  {
+                    "eventData": "Main firmware type: 11619001; version: 9\nRadio firmware type: 11618025; version: 5",
+                    "eventLogIndexAlias": 11,
+                    "eventtime": "14/10/2099 04:13:14",
+                    "eventtype": "Start up"
+                  },
+                  {
+                    "eventData": "High charger temp, derating output - Alarm",
+                    "eventLogIndexAlias": 12,
+                    "eventtime": "14/10/2099 04:13:15",
+                    "eventtype": "Alarm"
+                  },
+                  {
+                    "eventData": "High charger temp, derating output - Resumed",
+                    "eventLogIndexAlias": 13,
+                    "eventtime": "14/10/2099 04:14:23",
+                    "eventtype": "Alarm"
+                  },
+                  {
+                    "eventData": "Algorithm number = 12, (old value was 1)\nCapacity = 500 Ah, (old value was 50 Ah)\nCell count = 24, (old value was 6)\nCable resistance = 3000 mΩ, (old value was 0 mΩ)",
+                    "eventLogIndexAlias": 14,
+                    "eventtime": "14/10/2099 04:14:53",
+                    "eventtype": "Parameter changed"
+                  },
+                  {
+                    "eventData": "Main firmware type: 11619001; version: 9\nRadio firmware type: 11618025; version: 5",
+                    "eventLogIndexAlias": 15,
+                    "eventtime": "14/10/2099 04:17:25",
+                    "eventtype": "Start up"
+                  },
+                  {
+                    "eventData": "High charger temp power unit shut off - Alarm",
+                    "eventLogIndexAlias": 16,
+                    "eventtime": "14/10/2099 04:17:26",
+                    "eventtype": "Alarm"
+                  },
+                  {
+                    "eventData": "Type: Voltage; Old slope: 2.938735877055719e-39; New slope:",
+                    "eventLogIndexAlias": 17,
+                    "eventtime": "14/10/2099 04:21:23",
+                    "eventtype": "Calibration"
+                  },
+                  {
+                    "eventData": "Type: Current; Old slope: 5.877471754111438e-39; New slope:",
+                    "eventLogIndexAlias": 18,
+                    "eventtime": "14/10/2099 04:21:23  ",
+                    "eventtype": "Calibration"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Unauthorized: You must log in to do this."
+          }
+        }
+      },
+      "ResponseCheckSize": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "The requested data is too large: 1997 records, max 1000. Please reduce your request range or your MUIs."
+          }
+        }
+      },
+      "BadParameters": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "The requestType parameter must be either config, status, history, event, or instant."
+          }
+        }
+      },
+      "ItemNotFound": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Item Not Found"
+          }
+        }
+      },
+      "ResponseInstant": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "example": [
+              {
+                "mui": "562959144425069",
+                "batteryId": 2456,
+                "values": [
+                  {
+                    "time": "24/10/2021 14:08:29",
+                    "currentAverage": -63.2,
+                    "currentMin": -268.9,
+                    "currentMax": 100,
+                    "voltageAverage": 49.32,
+                    "voltageMin": 46.99,
+                    "voltageMax": 51.37,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.63,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:09:58",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:11:27",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:12:56",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:14:25",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  }
+                ]
+              },
+              {
+                "mui": "562959153521510",
+                "batteryId": 4118,
+                "values": [
+                  {
+                    "time": "24/10/2021 14:08:29",
+                    "currentAverage": -63.2,
+                    "currentMin": -268.9,
+                    "currentMax": 100,
+                    "voltageAverage": 49.32,
+                    "voltageMin": 46.99,
+                    "voltageMax": 51.37,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.63,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:09:58",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:11:27",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:12:56",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  },
+                  {
+                    "time": "24/10/2021 14:14:25",
+                    "currentAverage": -67.1,
+                    "currentMin": -319.9,
+                    "currentMax": 98.9,
+                    "voltageAverage": 49.15,
+                    "voltageMin": 45.53,
+                    "voltageMax": 52.29,
+                    "temperatureAverage": 23,
+                    "temperatureMin": 23,
+                    "temperatureMax": 23,
+                    "middleVoltageAverage": 24.57,
+                    "stateOfCharge": 78
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "login"
+        ],
+        "summary": "Authentication",
+        "description": "All API endpoints require requests to be authenticated, unless otherwise noted. The login endpoint returns a userId and authToken, which the client must include in subsequent requests in the X-User-Id and X-Auth-Token headers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginForm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong username",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExist"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Wrong password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrongPassword"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "description": "Get the list of the devices visible for the logged in user",
+        "summary": "List all devices",
+        "responses": {
+          "200": {
+            "description": "Successfully listing all devices visible for the logged in user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListDevices"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/{muis}/checkSize": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "parameters": [
+          {
+            "name": "muis",
+            "in": "path",
+            "description": "A MUI is a 64-bit unsigned integer that uniquely identifies a device. If there are multiple MUIs, use \",\" as the separator between them.",
+            "example": "562959144425069,562959153521510",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestType",
+            "in": "query",
+            "description": "RequestType can be config, status, history, event, or instant",
+            "example": "history",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Start date range for history and event logs",
+            "example": "2021-10-18T00:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "End date range for history, event, and instant logs",
+            "example": "2021-11-02T13:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "Count the number of records returned and max number of records a user can request. Users can reduce the request range or MUIs if the number of records returned are too big.",
+        "summary": "Check if an API response is too large.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCheckSize"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadParameters"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTimeout"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/{muis}/config": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "parameters": [
+          {
+            "name": "muis",
+            "in": "path",
+            "description": "A MUI is a 64-bit unsigned integer that uniquely identifies a device. If there are multiple MUIs, use \",\" as the separator between them.",
+            "example": "562959144425069,562959153521510",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "Get the configuration of the given device(s) visible for the logged in user",
+        "summary": "Get the configuration for certain device(s)",
+        "responses": {
+          "200": {
+            "description": "Successfully showing the configuration of the given device(s) visible for the logged in user. <br><br>The following fields are included in the response for a BMU. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>acidSensor</td> <td>Electrolyte level sensor present (Yes/No)</td> </tr> <tr> <td>ahAvailable</td> <td>Capacity in Ah of the battery</td> </tr> <tr> <td>ahUsed</td> <td>Hourly min of mains power</td> </tr> <tr> <td>algorithmNumber</td> <td>Charging curve number</td> </tr> <tr> <td>automaticCalibration</td> <td>Automatic calibration (Yes/No)</td> </tr> <tr> <td>baseLoad</td> <td>Current drained from the battery during charging in mA</td> </tr> <tr> <td>cableResistance</td> <td>Cable resistance in mΩ</td> </tr> <tr> <td>capacity</td> <td>Capacity in Ah of the battery</td> </tr> <tr> <td>cells</td> <td>Battery cell count</td> </tr> <tr> <td>cellTap</td> <td>Center voltage position</td> </tr> <tr> <td>channel</td> <td>Channel</td> </tr> <tr> <td>chargeEfficiency</td> <td>Charger efficiency (%)</td> </tr> <tr> <td>chargeStateThreshold</td> <td>Charge state threshold (in s)</td> </tr> <tr> <td>cyclesAvailable</td> <td>Cycles available</td> </tr> <tr> <td>dischargeStateThreshold</td> <td>Discharge state threshold (in s)</td> </tr> <tr> <td>equalizeFunction</td> <td>Equalize function</td> </tr> <tr> <td>equalizeParameter</td> <td>Equalize parameter</td> </tr> <tr> <td>everyDayUpdateHistoryLog</td> <td>24 h log (Yes/No)</td> </tr> <tr> <td>fahrenheitScale</td> <td>Temperature unit (e.g. °C)</td> </tr> <tr> <td>highHistoryCurrentIdleLimit</td> <td>High idle current limit (e.g. Normal)</td> </tr> <tr> <td>instantLogPeriod</td> <td>Instant log sample period (in s)</td> </tr> <tr> <td>latestDeviceConfigUpdate</td> <td>The datetime of the latest device config update</td> </tr> <tr> <td>nodeAddress</td> <td>Node address</td> </tr> <tr> <td>panId</td> <td>Node Node restriction</td> </tr> <tr> <td>stateOfChargeLow</td> <td>SOC alarm threshold (%)</td> </tr> <tr> <td>temperatureMax</td> <td>Max battery temperature (in °C)</td> </tr> <tr> <td>voltageBalanceLimit</td> <td>Voltage balance alarm threshold (in mV)</td> </tr> <tr> <td>wateringFunction</td> <td>Watering function</td> </tr> <tr> <td>wateringParameter</td> <td>Watering parameter</td> </tr> </table> <br><br>The following fields are included in the response for a charger. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>airPumpAlarmHigh</td> <td>Airpump variable alarm high</td> </tr> <tr> <td>airPumpAlarmLow</td> <td>Airpump variable alarm low</td> </tr> <tr> <td>airPumpVar</td> <td>Airpump variable</td> </tr> <tr> <td>airPumpVar2</td> <td>Airpump variable 2</td> </tr> <tr> <td>algorithmNumber</td> <td>Charging curve number</td> </tr> <tr> <td>backlightTime</td> <td>Backlight time</td> </tr> <tr> <td>baseLoad</td> <td>Current drained from the battery during charging (in mA)</td> </tr> <tr> <td>batteryTemperatureDefault</td> <td>Default battery temperature (in °C)</td> </tr> <tr> <td>bbcFunction</td> <td>BBC function</td> </tr> <tr> <td>bbcGroup</td> <td>BBC group</td> </tr> <tr> <td>buttonF1Func</td> <td>F1 function</td> </tr> <tr> <td>buttonF2Func</td> <td>F2 function</td> </tr> <tr> <td>cableResistance</td> <td>Cable resistance (in mΩ)</td> </tr> <tr> <td>canBitPerSecond</td> <td>CAN bit rate (in kbit/s)</td> </tr> <tr> <td>canMode</td> <td>CAN function</td> </tr> <tr> <td>canNodeId</td> <td>CAN Node ID</td> </tr> <tr> <td>capacity</td> <td>Capacity in Ah of the battery</td> </tr> <tr> <td>cecMode</td> <td>California Energy Comission mode active (true or false)</td> </tr> <tr> <td>cells</td> <td>Battery cell count</td> </tr> <tr> <td>channel</td> <td>Channel</td> </tr> <tr> <td>chargingMode</td> <td>The mode that charger will use to charge the battery (user defined, bmu, dual, multi)</td> </tr> <tr> <td>chargingRestrictions</td> <td>Charging restrictions</td> </tr> <tr> <td>chargingVoltageLimit</td> <td>Charging voltage limit</td> </tr> <tr> <td>displayContrast</td> <td>Display contrast</td> </tr> <tr> <td>dplFunction</td> <td>DPL function (disabled, master, slave)</td> </tr> <tr> <td>dplMode</td> <td>DPL activated (Yes/No)</td> </tr> <tr> <td>dplPowerLimitDefault</td> <td>Default DPL power limit (%)</td> </tr> <tr> <td>dplPowerLimitTotal</td> <td>DPL group total power (in kVA)</td> </tr> <tr> <td>dplPriorityFactor</td> <td>DPL priority (Low, Normal, High)</td> </tr> <tr> <td>engineCode</td> <td>Power unit ID</td> </tr> <tr> <td>equalizeFunction</td> <td>Equalize function</td> </tr> <tr> <td>equalizeParameter</td> <td>Equalize parameter</td> </tr> <tr> <td>equalizeVar2</td> <td>Equalize variable 2</td> </tr> <tr> <td>extraChargeFunc</td> <td>Extracharge function</td> </tr> <tr> <td>extraChargeVar</td> <td>Extracharge, day</td> </tr> <tr> <td>extraChargeVar2</td> <td>Extracharge, hour</td> </tr> <tr> <td>extraChargeVar3</td> <td>Extracharge, minute</td> </tr> <tr> <td>iDcLimit</td> <td>Max DC current (in A)</td> </tr> <tr> <td>instantLogPeriod</td> <td>Instant log sample period (in s)</td> </tr> <tr> <td>language</td> <td>Menu language</td> </tr> <tr> <td>latestDeviceConfigUpdate</td> <td>The date and time of the latest device config update</td> </tr> <tr> <td>ledBrightnessDim</td> <td>Led brightness dim</td> </tr> <tr> <td>ledBrightnessMax</td> <td>Led brightness max</td> </tr> <tr> <td>mainsCurrentLimit</td> <td>Mains current limit</td> </tr> <tr> <td>mainsPowerLimit</td> <td>Mains power limit</td> </tr> <tr> <td>nodeAddress</td> <td>Node address</td> </tr> <tr> <td>panId</td> <td>PAN ID</td> </tr> <tr> <td>parallelControlFunc</td> <td>Parallel control function</td> </tr> <tr> <td>panId</td> <td>PAN ID</td> </tr> <tr> <td>pinInSelect</td> <td>Extra input</td> </tr> <tr> <td>pinOutSelect</td> <td>Extra output</td> </tr> <tr> <td>powerGroup</td> <td>Power group</td> </tr> <tr> <td>quietDerate</td> <td>Quiet derate function (True/False)</td> </tr> <tr> <td>radioMode</td> <td>Radio function</td> </tr><tr> <td>radioNetworkSettings</td> <td>Radio network settings</td> </tr> <tr> <td>remoteInFunc</td> <td>Remote in function</td> </tr> <tr> <td>remoteOutAlarmVar</td> <td>Remote out variable 1</td> </tr> <tr> <td>remoteOutBbcVar</td> <td>Remote out, relay active criteria for BBC</td> </tr> <tr> <td>remoteOutFunc</td> <td>Remote out function</td> </tr> <tr> <td>remoteOutPhaseVar</td> <td>Remote out variable 2</td> </tr> <tr> <td>routing</td> <td>Use radio routing</td> </tr> <tr> <td>timeDateFormat</td> <td>Time and date format</td> </tr> <tr> <td>timeRestriction</td> <td>Time restriction (True/False)</td> </tr> <tr> <td>userParamMode</td> <td>User param function (True/False)</td> </tr> <tr> <td>wateringFunction</td> <td>Watering function</td> </tr> <tr> <td>wateringParameter</td> <td>Watering parameter</td> </tr> </table>",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseConfig"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTimeout"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayloadTooLarge"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/{muis}/status": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "parameters": [
+          {
+            "name": "muis",
+            "in": "path",
+            "description": "A MUI is a 64-bit unsigned integer that uniquely identifies a device. If there are multiple MUIs, use \",\" as the separator between them.",
+            "example": "562959144425069,562959153521510",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get the last reported status for a certain device",
+        "responses": {
+          "200": {
+            "description": "Successfully showing the status log of the selected devices visible for the logged in user. The data field contains the latest status signalled by the device. <br><br>The following fields are included in the response for a BMU. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>batteryCurrent</td> <td>Measured battery current (in A)</td> </tr> <tr> <td>batteryTemperature</td> <td>Measured battery temperature (in Celcius)</td> </tr> <tr> <td>batteryTemperatureAverage</td> <td>Average battery lifetime temperature (in Celcius)</td> </tr> <tr> <td>batteryVoltage</td> <td>Measured battery voltage</td> </tr> <tr> <td>cycles26To50</td> <td>Number of cycles where 26-50 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cycles2To25</td> <td>Number of cycles where < 25 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cycles51To80</td> <td>Number of cycles where 51-80 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cycles81To90</td> <td>Number of cycles where 81-90 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cyclesAbove90</td> <td>Number of cycles where > 90 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>deviceStatus</td> <td>Device status</td> </tr> <tr> <td>ebUnits</td> <td>Capacity discharged per 24 h in percent of the rated capacity. Calculated as an average of the last 7 days (in %)</td> </tr> <tr> <td>lastSeen</td> <td>Last seen</td> </tr> <tr> <td>stateOfChargeStatusLog</td> <td>Amount of capacity left in the battery</td> </tr> </table> <br><br>The following fields are included in the response for a charger. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>acPowerConsumption</td> <td>Momentary mains power consumption (in VA)</td> </tr> <tr> <td>chargerCurrent</td> <td>Momentary charger measured current (in A)</td> </tr> <tr> <td>chargerRating</td> <td>Charger nominal current, voltage and mains supply rating</td> </tr> <tr> <td>chargerTemperature</td> <td>Momentary charger heat sink temperature</td> </tr> <tr> <td>chargerVoltage</td> <td>Momentary charger measured voltage (in V)</td> </tr> <tr> <td>chargingBatteryId</td> <td>Battery ID</td> </tr> <tr> <td>cycles26To50</td> <td>Number of cycles where 26-50 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cycles2To25</td> <td>Number of cycles where < 25 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cycles51To80</td> <td>Number of cycles where 51-80 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cycles81To90</td> <td>Number of cycles where 81-90 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>cyclesAbove90</td> <td>Number of cycles where > 90 % of the battery capacity have been discharged. In order for the cycle to be counted at least 1Ah must have been discharged</td> </tr> <tr> <td>deviceStatus</td> <td>Device status</td> </tr> <tr> <td>lastSeen</td> <td>Last seen</td> </tr> <tr> <td>latestStatusLogUpdate</td> <td>Latest status log update</td> </tr> </table>",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTimeout"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayloadTooLarge"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/{muis}/history": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "parameters": [
+          {
+            "name": "muis",
+            "in": "path",
+            "description": "A MUI is a 64-bit unsigned integer that uniquely identifies a device. If there are multiple MUIs, use \",\" as the separator between them.",
+            "example": "562959144425069,562959153521510",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Start date range for history logs",
+            "example": "2021-10-18T00:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "End date range for history logs",
+            "example": "2021-11-02T13:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get the history log for a certain device",
+        "responses": {
+          "200": {
+            "description": "Successfully showing the history log of the selected devices visible for the logged in user. The data field contains the history logs. <br><br>The following fields are included in the response for a BMU. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>chargeActiveTimeBMU</td> <td>Duration of charge current during charge (in hours)</td> </tr> <tr> <td>chargeAh</td> <td>Ah charged between Charge start time and Charge end time</td> </tr> <tr> <td>chargeBatteryTemperatureMax</td> <td>The maximum battery temperature being reached during charge (in Celcius)</td> </tr> <tr> <td>chargeBatteryTemperatureMin</td> <td>The minimum battery temperature being reached during charge (in Celcius)</td> </tr> <tr> <td>chargeCurrentMax</td> <td>Maximum current measured during charge (in A)</td> </tr> <tr> <td>chargeStateOfChargeEnd</td> <td>State of charge at end of charge (in %)</td> </tr> <tr> <td>chargeStateOfChargeStart</td> <td>State of charge at start of charge (in %)</td> </tr> <tr> <td>chargeTimeStart</td> <td>Start date and time of charging</td> </tr> <tr> <td>chargeVpcMax</td> <td>Maximum voltage per cell during charge (in V)</td> </tr> <tr> <td>chargeVpcStart</td> <td>Battery cell voltage, 60-90s before entering charge state (in V)</td> </tr> <tr> <td>dischargeActiveTime</td> <td>Duration of discharge current during discharge (in hours)</td> </tr> <tr> <td>dischargeAh</td> <td>Number of Ah discharged between discharge start time and charge start time</td> </tr> <tr> <td>dischargeBatteryTemperatureMax</td> <td>The maximum battery temperature being reached during discharge (in Celcius)</td> </tr> <tr> <td>dischargeBatteryTemperatureMin</td> <td>The minimum battery temperature being reached during discharge (in Celcius)</td> </tr> <tr> <td>dischargeCurrentMax</td> <td>The maximum current during discharge (in A)</td> </tr> <tr> <td>dischargeStateOfChargeEnd</td> <td>State of charge at end of discharge (in %)</td> </tr> <tr> <td>dischargeStateOfChargeStart</td> <td>State of charge at start of discharge (in %)</td> </tr> <tr> <td>dischargeTimeStart</td> <td>Start date and time of charging</td> </tr> <tr> <td>dischargeVpcMin</td> <td>Minimum battery voltage per cell during discharge (in V)</td> </tr> <tr> <td>equalizeTime</td> <td>Total time in equalize charging phase. Only relevant if an Access battery charger is connected</td> </tr> </table> <br><br>The following fields are included in the response for a charger. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>chargeAh</td> <td>Ah charged between Charge start time and Charge end time</td> </tr> <tr> <td>chargerTemperatureMax</td> <td>Maximum charger temperature between charge start time and charge end time (in Celcius)</td> </tr> <tr> <td>chargeTime</td> <td>Time when charger output power is turned on (in hours)</td> </tr> <tr> <td>chargeTimeEnd</td> <td>End date and time of charging</td> </tr> <tr> <td>chargeTimeStart</td> <td>Start date and time of charging</td> </tr> <tr> <td>chargeVpcEnd</td> <td>Battery cell voltage, 60-90s before entering discharge state (in V)</td> </tr> <tr> <td>chargeVpcStart</td> <td>Battery cell voltage, 60-90s before entering charge state (in V)</td> </tr> <tr> <td>chargeWh</td> <td>Wh charged between Charge start time and Charge end time</td> </tr> <tr> <td>equalizeTime</td> <td>Total time in equalize charging phase. Only relevant if an Access battery charger is connected</td> </tr> </table>",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseHistory"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTimeout"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayloadTooLarge"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/{muis}/event": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "parameters": [
+          {
+            "name": "muis",
+            "in": "path",
+            "description": "A MUI is a 64-bit unsigned integer that uniquely identifies a device. If there are multiple MUIs, use \",\" as the separator between them.",
+            "example": "562959144425069,562959153521510",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Start date range for event logs",
+            "example": "2021-10-18T00:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "End date range for event logs",
+            "example": "2021-11-02T13:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get the event logs for selected devices.",
+        "responses": {
+          "200": {
+            "description": "Successfully showing the event logs of the selected devices visible for the logged in user. The data field contains the event logs signalled by the device. <br><br>The following fields are included in the response for a BMU and a charger. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>batteryId</td> <td>Battery ID</td> </tr> <tr> <td>chargerId</td> <td>Charger ID</td> </tr> <tr> <td>eventData</td> <td>Information</td> </tr> <tr> <td>eventLogIndexAlias</td> <td>The index of the latest event log</td> </tr> <tr> <td>eventtime</td> <td>Time</td> </tr> <tr> <td>eventtype</td> <td>Description (Alarm, Calibration, Parameter changed, or Start up)</td> </tr> </table>",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEvent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTimeout"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayloadTooLarge"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/devices/{muis}/instant": {
+      "get": {
+        "tags": [
+          "devices"
+        ],
+        "parameters": [
+          {
+            "name": "muis",
+            "in": "path",
+            "description": "A MUI is a 64-bit unsigned integer that uniquely identifies a device. If there are multiple MUIs, use \",\" as the separator between them.",
+            "example": "562959144425069,562959153521510",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Start date range for instant logs",
+            "example": "2021-10-18T00:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+		  {
+            "name": "to",
+            "in": "query",
+            "description": "End date for instant logs",
+            "example": "2021-10-18T13:00:00.0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get the instant logs for selected devices.",
+        "responses": {
+          "200": {
+            "description": "Successfully showing the instant logs of the selected devices visible for the logged in user. The data field contains the instant logs aggregated by GET Cloud. <br><br>The following fields are included in the response for a BMU. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>batteryId</td> <td>Battery ID</td> </tr> <tr> <td>time</td> <td>Time</td> </tr> <tr> <td>currentAverage</td> <td>Average battery current between two instant log samples</td> </tr> <tr> <td>currentMin</td> <td>Minimum battery current between two instant log samples</td> </tr> <tr> <td>currentMax</td> <td>Maximum battery current between two instant log samples</td> </tr> <tr> <td>voltageAverage</td> <td>Average battery voltage between two instant log samples</td> </tr> <tr> <td>voltageMin</td> <td>Minimum battery voltage between two instant log samples</td> </tr> <tr> <td>voltageMax</td> <td>Maximum battery voltage between two instant log samples</td> </tr> <tr> <td>temperatureAverage</td> <td>Average battery temperature between two instant log samples</td> </tr> <tr> <td>temperatureMin</td> <td>Minimum battery temperature between two instant log samples</td> </tr> <tr> <td>temperatureMax</td> <td>Maximum battery temperature between two instant log samples</td> </tr> <tr> <td>middleVoltageAverage</td> <td>Average center voltage between two instant log samples</td> </tr> <tr> <td>stateOfCharge</td> <td>Average battery state of charge between two instant log samples (BMU2 only)</td> </tr> </table> <br><br>The following fields are included in the response for a charger. <table border=5> <tr> <th>Attribute name</th> <th>Description</th> </tr> <tr> <td>chargerId</td> <td>Charger ID</td> </tr> <tr> <td>time</td> <td>Time</td> </tr> <tr> <td>chargerCurrent</td> <td>Momentary charger measured current</td> </tr> <tr> <td>chargerTemperature</td> <td>Momentary charger heat sink temperature</td> </tr> <tr> <td>chargerVoltage</td> <td>Momentary charger measured voltage</td> </tr> </table>",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInstant"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTimeout"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayloadTooLarge"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
