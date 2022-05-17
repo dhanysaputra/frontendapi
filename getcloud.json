@@ -3910,11 +3910,11 @@
         "summary": "Deep discharge sum (line chart)",
         "responses": {
           "200": {
-            "description": "Get the list of all alarms on the requested month, and calculate the sum of each alarm.",
+            "description": "Get the sum of deep discharge per day",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseFleetAlarmsAggregated"
+                  "$ref": "#/components/schemas/ResponseOverviewMainsEnergy"
                 }
               }
             }
