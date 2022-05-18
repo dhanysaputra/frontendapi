@@ -156,7 +156,7 @@
         "summary": "Get BMU's daily minimum SOC",
         "responses": {
           "200": {
-            "description": "Get the daily minimum SOC of a given MUI on the requested month. The first element of \"data\" is always day 1 of the requested month.",
+            "description": "Get the daily minimum SOC of a given MUI on the requested month. The first element of \"data\" is always day 1 of the requested month. Values of \"data\" are 0-100 or null.",
             "content": {
               "application/json": {
                 "schema": {
@@ -251,7 +251,7 @@
         "summary": "Get BMU's list of alarms",
         "responses": {
           "200": {
-            "description": "Get the list of alarms of a given MUI on the requested month. The first element of \"data\" is always day 1 of the requested month.",
+            "description": "Get the list of alarms of a given MUI on the requested month. The number of elements for \"alarmNames\" and \"quantity\" must match. Values of \"quantity\" must be > 0 (null and 0 are not allowed).",
             "content": {
               "application/json": {
                 "schema": {
@@ -318,7 +318,7 @@
         "summary": "Get BMU's configuration",
         "responses": {
           "200": {
-            "description": "Get the latest configuration of a given MUI.",
+            "description": "Get the latest configuration of a given MUI. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code> and the number of elements for both must match.",
             "content": {
               "application/json": {
                 "schema": {
@@ -472,7 +472,7 @@
         "summary": "Get BMU's history chart",
         "responses": {
           "200": {
-            "description": "Get the history logs of a given MUI on the requested duration.",
+            "description": "Get the history logs of a given MUI on the requested date range. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code>.<br><br><code>values</code> is an array of array, each of which represents one row of history log. The number of <code>values</code> elements in <code>basic</code>, <code>advanced</code>, and <code>other</code> must match. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>",
             "content": {
               "application/json": {
                 "schema": {
@@ -5859,7 +5859,7 @@
                 "type": "object",
                 "description": "Basic configurations",
                 "properties": {
-                  "names": {
+                  "fields": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -5899,7 +5899,7 @@
                   }
                 },
                 "required": [
-                  "names",
+                  "fields",
                   "values"
                 ]
               },
@@ -5907,7 +5907,7 @@
                 "type": "object",
                 "description": "Advanced configurations",
                 "properties": {
-                  "names": {
+                  "fields": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -5942,7 +5942,7 @@
                   }
                 },
                 "required": [
-                  "names",
+                  "fields",
                   "values"
                 ]
               },
@@ -5950,7 +5950,7 @@
                 "type": "object",
                 "description": "Other configurations",
                 "properties": {
-                  "names": {
+                  "fields": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -5985,7 +5985,7 @@
                   }
                 },
                 "required": [
-                  "names",
+                  "fields",
                   "values"
                 ]
               }
@@ -5997,7 +5997,7 @@
             ],
             "example": {
               "basic": {
-                "names": [
+                "fields": [
                   "Charging curve",
                   "Battery cell count",
                   "Battery capacity (Ah);Battery capacity;Capacity (Ah);Capacity",
@@ -6015,7 +6015,7 @@
                 ]
               },
               "advanced": {
-                "names": [
+                "fields": [
                   "Charging current limit (A);Max DC current (A)",
                   "Base load (mA);Baseload;Baseload ;Baseload (mA)",
                   "Cable resistance;Cable resistance (mOhm)",
@@ -6041,7 +6041,7 @@
                 ]
               },
               "other": {
-                "names": [
+                "fields": [
                   "Voltage balance alarm threshold",
                   "Max battery temperature",
                   "SOC alarm threshold",
@@ -6183,7 +6183,7 @@
                 "type": "object",
                 "description": "history logs, minimalist version",
                 "properties": {
-                  "names": {
+                  "fields": {
                     "type": "array",
                     "description": "Attribute name (=column name in history logs table)",
                     "items": {
@@ -6225,7 +6225,7 @@
                 "type": "object",
                 "description": "history logs, advanced version",
                 "properties": {
-                  "names": {
+                  "fields": {
                     "type": "array",
                     "description": "Attribute name (=column name in history logs table)",
                     "items": {
@@ -6267,7 +6267,7 @@
                 "type": "object",
                 "description": "The complete version of history logs consists of basic, advanced, and other.",
                 "properties": {
-                  "names": {
+                  "fields": {
                     "type": "array",
                     "description": "Attribute name (=column name in history logs table)",
                     "items": {
@@ -6308,7 +6308,7 @@
             },
             "example": {
               "basic": {
-                "names": [
+                "fields": [
                   "Discharge  start time",
                   "Discharge duration (h)",
                   "Discharge end SOC (%)",
@@ -6728,7 +6728,7 @@
                 ]
               },
               "advanced": {
-                "names": [
+                "fields": [
                   "Discharge active time",
                   "Discharge resting time",
                   "Discharge start VPC (V)",
@@ -7276,7 +7276,7 @@
                 ]
               },
               "other": {
-                "names": [
+                "fields": [
                   "Discharge min VPC (V)",
                   "Discharge start SOC",
                   "Discharge start battery temp",
@@ -8482,22 +8482,43 @@
             "example": "success"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "minimum": 1,
-              "exclusiveMinimum": true,
-              "maximum": 50,
-              "exclusiveMaximum": true
-            },
-            "description": "Number of kWh consumed mains energy per day.",
-            "example": [
-              1000,
-              500,
-              805,
-              748,
-              20
-            ]
+            "type": "object",
+            "properties": {
+              "xLabel": {
+                "type": "string",
+                "example": "Date"
+              },
+              "yLabel": {
+                "type": "string",
+                "example": "kWh"
+              },
+              "xLabelDisplay": {
+                "type": "boolean",
+                "example": false
+              },
+              "yLabelDisplay": {
+                "type": "boolean",
+                "example": false
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "exclusiveMinimum": true,
+                  "maximum": 50,
+                  "exclusiveMaximum": true
+                },
+                "description": "Number of kWh consumed mains energy per day.",
+                "example": [
+                  1000,
+                  500,
+                  805,
+                  748,
+                  20
+                ]
+              }
+            }
           }
         },
         "required": [
