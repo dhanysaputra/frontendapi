@@ -3532,6 +3532,111 @@
         }
       }
     },
+    "/{type}/{id}/charging/sum": {
+      "get": {
+        "tags": [
+          "fleet/fleetgroup"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "fleet or fleetgroup",
+            "example": "fleet",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Fleet id or fleetgroup id",
+            "example": "123821738273",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "month (1=January, 2=February, ..., 12=December)",
+            "example": 3,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "exclusiveMinimum": true,
+              "maximum": 12,
+              "exclusiveMaximum": true
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "year",
+            "example": 2015,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 2017,
+              "exclusiveMinimum": true,
+              "maximum": 2050,
+              "exclusiveMaximum": true
+            }
+          }
+        ],
+        "summary": "Deep discharge sum (line chart)",
+        "responses": {
+          "200": {
+            "description": "Get the number of BMUs for this fleet/fleetgroups on the requested month.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseFleetChargingDaily"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ItemNotFound",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "InternalServerError",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{type}/{id}/charging/logs": {
       "get": {
         "tags": [
