@@ -156,7 +156,7 @@
         "summary": "Get BMU's daily minimum SOC",
         "responses": {
           "200": {
-            "description": "Get the daily minimum SOC of a given MUI on the requested month. The first element of \"data\" is always day 1 of the requested month. Values of \"data\" are 0-100 or null.",
+            "description": "Get the daily minimum SOC of a given MUI on the requested month. The first element of <code>data</code> is always day 1 of the requested month. Values in <code>data</code> are 0-100 or null.",
             "content": {
               "application/json": {
                 "schema": {
@@ -251,7 +251,7 @@
         "summary": "Get BMU's list of alarms",
         "responses": {
           "200": {
-            "description": "Get the list of alarms of a given MUI on the requested month. The number of elements for \"alarmNames\" and \"quantity\" must match. Values of \"quantity\" must be > 0 (null and 0 are not allowed).",
+            "description": "Get the list of alarms of a given MUI on the requested month. The number of elements for <code>alarmNames</code> and <code>quantity</code> must match. Values in <code>quantity</code> must be > 0 (null and 0 are not allowed).",
             "content": {
               "application/json": {
                 "schema": {
@@ -318,7 +318,7 @@
         "summary": "Get BMU's configuration",
         "responses": {
           "200": {
-            "description": "Get the latest configuration of a given MUI. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code> and the number of elements for both must match.",
+            "description": "Get the latest configuration of a given MUI. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code> and the number of elements for both must match. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -472,7 +472,7 @@
         "summary": "Get BMU's history chart",
         "responses": {
           "200": {
-            "description": "Get the history logs of a given MUI on the requested date range. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code>.<br><br><code>values</code> is an array of array, each of which represents one row of history log. The number of <code>values</code> elements in <code>basic</code>, <code>advanced</code>, and <code>other</code> must match. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>",
+            "description": "Get the history logs of a given MUI on the requested date range. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code>.<br><br><code>values</code> is an array of array, each of which represents one row of the history log. The number of <code>values</code> elements in <code>basic</code>, <code>advanced</code>, and <code>other</code> must match. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -559,7 +559,7 @@
         "summary": "Get BMU's history logs",
         "responses": {
           "200": {
-            "description": "Get the history chart of a given MUI on the requested duration.",
+            "description": "Get the history chart's<ol><li>x values (<code>x</code>)</li><li>possible series names for dropdown left/right axis menu (<code>y_names</code>), and</li><li>y values for each y_names (<code>y</code>))</ol> of a given MUI on the requested date range.<br><br><code>y</code> is an array of array, each of which represents each <code>y_names</code> (not <code>x</code>!). The number of elements in each array in <code>y</code> must match the number of elements in <code>x</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -646,7 +646,7 @@
         "summary": "Get BMU's event logs",
         "responses": {
           "200": {
-            "description": "Get the event logs of a given MUI on the requested duration.",
+            "description": "Get the event logs of a given MUI on the requested date range. <code>data</code> must contain <code>fields</code> and <code>values</code> keys. <br><br><code>values</code> is an array of array, each of which represents one row of the event log. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -733,7 +733,7 @@
         "summary": "Get BMU's instant logs",
         "responses": {
           "200": {
-            "description": "Get the instant logs of a given MUI on the requested duration.",
+            "description": "Get the instant logs'<ol><li>x values (<code>x</code>)</li><li>possible series names for dropdown left/right axis menu (<code>y_names</code>), and</li><li>y values for each y_names (<code>y</code>))</ol> of a given MUI on the requested date range.<br><br><code>y</code> is an array of array, each of which represents each <code>y_names</code> (not <code>x</code>!). The number of elements in each array in <code>y</code> must match the number of elements in <code>x</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -788,7 +788,7 @@
         "summary": "Get history chart's Y axes",
         "responses": {
           "200": {
-            "description": "Get the history chart's list of possible Y axes",
+            "description": "Get the list of left/right axis dropdown menu for history chart tab.<ul><li>The number of elements in <code>yaxis1</code> and <code>yaxis2</code> must match. But the number of elements on each <code>yaxis2</code> doesn't have to equal the number of  elements of <code>yaxis1</code> - 1.<li>When none from both left and right axis dropdown is chosen, both dropdown menus should contain values from <code>yaxis1</code>.</li><li>When nothing from the right axis is chosen but <code>yaxis1[1]</code> (Charge active time) from the left axis dropdown is chosen, then the right axis should change to contain the list from <code>yaxis2[1]</code> ([\"Charge duration\", \"Charge resting time\", \"Charged Ah\"])</li><li>When nothing from the left axis is chosen but <code>yaxis1[2]</code> (Charge resting time) from the right axis dropdown is chosen, then the left axis should change to contain the list from <code>yaxis2[2]</code> ([\"Charge duration\", \"Charge active time\", \"Charged Ah\"])</li></li></ul>",
             "content": {
               "application/json": {
                 "schema": {
@@ -1096,7 +1096,7 @@
         "summary": "Get BMS's daily minimum SOC",
         "responses": {
           "200": {
-            "description": "Get the daily minimum SOC of a given MUI on the requested month. The first element of \"data\" is always day 1 of the requested month.",
+            "description": "Get the daily minimum SOC of a given MUI on the requested month. The first element of <code>data</code> is always day 1 of the requested month. Values in <code>data</code> are 0-100 or null.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1191,7 +1191,7 @@
         "summary": "Get BMS's list of alarms",
         "responses": {
           "200": {
-            "description": "Get the list of alarms of a given MUI on the requested month. The first element of \"data\" is always day 1 of the requested month.",
+            "description": "Get the list of alarms of a given MUI on the requested month. The number of elements for <code>alarmNames</code> and <code>quantity</code> must match. Values in <code>quantity</code> must be > 0 (null and 0 are not allowed).",
             "content": {
               "application/json": {
                 "schema": {
@@ -1258,7 +1258,7 @@
         "summary": "Get BMS's configuration",
         "responses": {
           "200": {
-            "description": "Get the latest configuration of a given MUI.",
+            "description": "Get the latest configuration of a given MUI. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code> and the number of elements for both must match. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1894,7 +1894,7 @@
         "summary": "Get charger's daily connect (calendar)",
         "responses": {
           "200": {
-            "description": "Get the number of charge start per day of a given charger MUI on the requested month. The first element of \"data\" is always day 1 of the requested month.",
+            "description": "Get the number of charge start per day of a given charger MUI on the requested month. The first element of <code>data</code> is always day 1 of the requested month. Values in <code>data</code> must be integer >= -1 or null (-1 means the day isn't finished yet for that charger)",
             "content": {
               "application/json": {
                 "schema": {
@@ -1989,7 +1989,7 @@
         "summary": "Get charger's used mains energy (line chart)",
         "responses": {
           "200": {
-            "description": "Get the number of consumed mains energy (in kWh) per day of a given charger MUI on the requested month. The first element of \"data\" is always day 1 of the requested month.",
+            "description": "Get the number of consumed mains energy (in kWh) per day of a given charger MUI on the requested month. The first element of <code>data</code> is always day 1 of the requested month. Values in <code>data</code> are >=0 (unlimited non-negative number) or null.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2056,7 +2056,7 @@
         "summary": "Get charger's configuration",
         "responses": {
           "200": {
-            "description": "Get the latest configuration of a given MUI.",
+            "description": "Get the latest configuration of a given MUI. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code> and the number of elements for both must match. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2210,7 +2210,7 @@
         "summary": "Get charger's history logs",
         "responses": {
           "200": {
-            "description": "Get the history logs of a given MUI on the requested duration.",
+            "description": "Get the history logs of a given MUI on the requested date range. <code>data</code> must contain <code>basic</code>, <code>advanced</code>, and <code>other</code> keys. Each of those three must contain <code>fields</code> and <code>values</code>.<br><br><code>values</code> is an array of array, each of which represents one row of the history log. The number of <code>values</code> elements in <code>basic</code>, <code>advanced</code>, and <code>other</code> must match. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2297,7 +2297,7 @@
         "summary": "Get charger's history chart",
         "responses": {
           "200": {
-            "description": "Get the history chart of a given MUI on the requested duration.",
+            "description": "Get the history chart's<ol><li>x values (<code>x</code>)</li><li>possible series names for dropdown left/right axis menu (<code>y_names</code>), and</li><li>y values for each y_names (<code>y</code>))</ol> of a given MUI on the requested date range.<br><br><code>y</code> is an array of array, each of which represents each <code>y_names</code> (not <code>x</code>!). The number of elements in each array in <code>y</code> must match the number of elements in <code>x</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2384,7 +2384,7 @@
         "summary": "Get charger's event logs",
         "responses": {
           "200": {
-            "description": "Get the event logs of a given MUI on the requested duration.",
+            "description": "Get the event logs of a given MUI on the requested date range. <code>data</code> must contain <code>fields</code> and <code>values</code> keys. <br><br><code>values</code> is an array of array, each of which represents one row of the event log. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2471,7 +2471,7 @@
         "summary": "Get charger's instant logs",
         "responses": {
           "200": {
-            "description": "Get the instant logs of a given MUI on the requested duration.",
+            "description": "Get the instant logs'<ol><li>x values (<code>x</code>)</li><li>possible series names for dropdown left/right axis menu (<code>y_names</code>), and</li><li>y values for each y_names (<code>y</code>))</ol> of a given MUI on the requested date range.<br><br><code>y</code> is an array of array, each of which represents each <code>y_names</code> (not <code>x</code>!). The number of elements in each array in <code>y</code> must match the number of elements in <code>x</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2526,7 +2526,7 @@
         "summary": "Get history chart's Y axes",
         "responses": {
           "200": {
-            "description": "Get the history chart's list of possible Y axes",
+            "description": "Get the list of left/right axis dropdown menu for history chart tab.<ul><li>The number of elements in <code>yaxis1</code> and <code>yaxis2</code> must match. But the number of elements on each <code>yaxis2</code> doesn't have to equal the number of  elements of <code>yaxis1</code> - 1.<li>When none from both left and right axis dropdown is chosen, both dropdown menus should contain values from <code>yaxis1</code>.</li><li>When nothing from the right axis is chosen but <code>yaxis1[1]</code> (Charge active time) from the left axis dropdown is chosen, then the right axis should change to contain the list from <code>yaxis2[1]</code> ([\"Charge duration\", \"Charge resting time\", \"Charged Ah\"])</li><li>When nothing from the left axis is chosen but <code>yaxis1[2]</code> (Charge resting time) from the right axis dropdown is chosen, then the left axis should change to contain the list from <code>yaxis2[2]</code> ([\"Charge duration\", \"Charge active time\", \"Charged Ah\"])</li></li></ul>",
             "content": {
               "application/json": {
                 "schema": {
@@ -3070,7 +3070,7 @@
         "summary": "List tab(s)",
         "responses": {
           "200": {
-            "description": "Get the list of tabs and its monitoring properties of the given fleet Id",
+            "description": "Get the list of enabled tabs (alarms, soc, equalizing, charging) and its monitoring properties (equalizingCycles, chargingPerWeek) of the given fleet Id/fleetgroup Id.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3175,7 +3175,7 @@
         "summary": "Days with alarm (calendar)",
         "responses": {
           "200": {
-            "description": "Get the days with alarms of a given charger MUI on the requested month. 0 = no alarm (green), 1 = less severe alarm(s) (orange), 2 = severe alarm(s) (red), -1 = the day is not finished (blue)",
+            "description": "Get the daily status regarding alarms (=days with alarms) of a given fleet/fleetgroup on the requested month. 0 = no alarm that day (green), 1 = less severe alarms that day (orange), 2 = severe alarms that day (red), -1 = the day is not finished (blue)",
             "content": {
               "application/json": {
                 "schema": {
@@ -3280,7 +3280,7 @@
         "summary": "Aggregated alarms (bar chart)",
         "responses": {
           "200": {
-            "description": "Get the list of all alarms on the requested month, and calculate the sum of each alarm.",
+            "description": "Get the list of alarms of a given MUI on the requested month. The number of elements for <code>alarmNames</code> and <code>quantity</code> must match. Values in <code>quantity</code> must be > 0 (null and 0 are not allowed).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3385,7 +3385,7 @@
         "summary": "Alarm logs (table)",
         "responses": {
           "200": {
-            "description": "Get the alarm logs of all devices on a given fleet on the requested month.",
+            "description": "Get the alarm logs of all devices on a given fleet on the requested month. <code>data</code> must contain <code>fields</code> and <code>values</code>.<br><br><code>values</code> is an array of array, each of which represents one row of the alarm log. The number of elements in each array in <code>values</code> must match the number of elements in <code>fields</code>. See the example below.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3490,7 +3490,7 @@
         "summary": "Daily charging completion (calendar)",
         "responses": {
           "200": {
-            "description": "Get the daily charging completion of a given fleet on the requested month. 0 = all BMUs have been charged (green), 1 = some BMUs have NOT been charged (orange), 2 = many BMUs have NOT been charged, -1 = the day is not finished (blue)",
+            "description": "Get the daily status whether charging is completed or not, on a given fleet/fleetgroup, on the requested month. 0 = all BMUs+BMSs have been charged (green), 1 = some BMUs/BMSs have NOT been charged (orange), 2 = many BMUs/BMSs have NOT been charged, -1 = the day is not finished (blue)",
             "content": {
               "application/json": {
                 "schema": {
@@ -3595,7 +3595,7 @@
         "summary": "Charging routine completion (line chart)",
         "responses": {
           "200": {
-            "description": "Get the number of BMUs for this fleet/fleetgroups on the requested month.",
+            "description": "Get how many % BMUs+BMSs charged in this fleet/fleetgroups on the requested month. The first element of <code>data</code> is always day 1 of the requested month. Values in <code>data</code> are 0-100 or null.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6196,26 +6196,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "integer"
-                          },
-                          {
-                            "type": "boolean"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "object"
-                          },
-                          {
-                            "type": "array"
-                          }
-                        ]
+                        "type": "string"
                       }
                     }
                   }
@@ -6238,26 +6219,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "integer"
-                          },
-                          {
-                            "type": "boolean"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "object"
-                          },
-                          {
-                            "type": "array"
-                          }
-                        ]
+                        "type": "string"
                       }
                     }
                   }
@@ -6280,26 +6242,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "integer"
-                          },
-                          {
-                            "type": "boolean"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "object"
-                          },
-                          {
-                            "type": "array"
-                          }
-                        ]
+                        "type": "string"
                       }
                     }
                   }
@@ -8583,9 +8526,7 @@
                 "description": "The time when history log was written",
                 "example": [
                   "2020-01-01 00:00:00",
-                  "2020-01-01 02:00:00",
-                  "2020-01-01 04:00:00",
-                  "2020-01-01 06:00:00"
+                  "2020-01-01 02:00:00"
                 ]
               },
               "y_names": {
@@ -8612,27 +8553,19 @@
                 "example": [
                   [
                     25.6,
-                    24.8,
-                    24.7,
-                    24.6
+                    24.8
                   ],
                   [
                     25.6,
-                    24.8,
-                    24.7,
-                    24.6
+                    24.8
                   ],
                   [
                     25.6,
-                    24.8,
-                    24.7,
-                    24.6
+                    24.8
                   ],
                   [
                     25.6,
-                    24.8,
-                    24.7,
-                    24.6
+                    24.8
                   ]
                 ]
               }
